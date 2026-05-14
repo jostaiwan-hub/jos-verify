@@ -539,37 +539,13 @@
 
 </div>
 
-<script>
-const MOCK_DB = {
-  "0521": {
-    name: "美感美學工作室",
-    code: "JOS-AUTH-0521",
-    serialNo: "JB052100521",
-    types: ["官方合作店家", "官方體驗據點"],
-    address: "台北市大安區忠孝東路四段 100 號",
-    validFrom: "2026.05.21",
-    validTo: "2027.05.20",
-    status: "valid"
-  },
-  "0322": {
-    name: "光感美容沙龍",
-    code: "JOS-AUTH-0322",
-    serialNo: "JB032200322",
-    types: ["官方授權經銷"],
-    address: "新北市板橋區文化路一段 88 號",
-    validFrom: "2026.03.22",
-    validTo: "2027.03.21",
-    status: "valid"
-  },
-  "9999": { status: "expired", reason: "授權期限已屆滿" }
-};
+
 
 function lookupCode(code) {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve(MOCK_DB[code.toUpperCase()] || { status: "notfound" });
-    }, 1100);
-  });
+ const API = 'https://script.google.com/macros/s/AKfycbwrt9llzLkbejo5QbrqkKbC6SeJ2M1ou0rjs0IK5AWL-zMNwllSqO5r4iPF3gG9rikAIg/exec';
+  return fetch(API + '?code=' + encodeURIComponent(code))
+    .then(res => res.json())
+    .catch(() => ({ status: 'notfound' }));
 }
 
 async function doVerify() {
